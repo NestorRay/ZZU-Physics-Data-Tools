@@ -42,7 +42,12 @@ resu = 0.5*(dt1+dt2)
 print(resu)
 print("-------------------------------")
 print("最小偏向角: ",np.mean(resu))
-print("A类不确定度: ",np.sqrt(np.var(resu,ddof=1)))
+uncertain_A = np.sqrt(np.var(resu,ddof=1))
+print("A类不确定度: ",uncertain_A)
+uncertain_B  = 1/60
+uncertain = np.sqrt((np.pow(uncertain_A,2)+np.pow(uncertain_B,2)/2))
+
+print("不确定度: ",uncertain)
 # print(deg)
 # print(data)
 
@@ -64,5 +69,6 @@ vars_y = np.array([x_fixed, y_target], dtype=np.float64)
 epsilon = 1e-6 
 partial_y = approx_fprime(vars_y, binary_func, epsilon)[1]
 print(f"在(x={x_fixed}, y={y_target})处，对y的偏导：{partial_y:.6f}")
-error = (partial_y/n)*100
+print(f"折射率的不确定度{partial_y*uncertain}")
+error = (partial_y*uncertain/n)*100
 print(f"相对误差为：{error}%")
