@@ -39,9 +39,8 @@ dt2 = deg[3,...]-deg[1,...]
 
 resu = 0.5*(dt1+dt2)
 # print(dt1,'\n',dt2)
-
-print('\n')
 print(resu)
+print("-------------------------------")
 print("最小偏向角: ",np.mean(resu))
 print("A类不确定度: ",np.sqrt(np.var(resu,ddof=1)))
 # print(deg)
