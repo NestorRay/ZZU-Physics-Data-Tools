@@ -1,6 +1,6 @@
 import numpy as np
 once = np.array([723,683,46.56])
-once = once/1000
+
 def youngs(var):
     k,L,H,D,d = var
     a = (8*9.8*L*H)
@@ -16,7 +16,7 @@ diameter = np.array([1.088,
 
 d0 = 0.45
 diameter = diameter-d0
-diameter = diameter/1000
+
 data = np.zeros((4,10))
 data[0] = ([0,
             1.01,
@@ -52,6 +52,9 @@ data[2] = ([14.0,
 data[3] = (data[1,...]+data[2,...])/2
 
 data[1:4,...] = data[1:4,...]/1000
+once = once/1000
+diameter = diameter/1000
+
 k,b = np.polyfit(data[0],data[3],deg=1)
 input_data = np.concatenate([np.array([k]),once[:],np.array([np.mean(diameter)])])
 result = youngs(input_data)
