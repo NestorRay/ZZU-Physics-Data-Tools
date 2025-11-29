@@ -28,7 +28,7 @@ uv pip install -r requirement.txt
 
 4. 进入对应的文件夹
 ```
-cd ./Exp
+cd ./Exp01
 ```
 5. 参照文件夹内README修改数据
 
@@ -38,5 +38,5 @@ cd ./Exp
 ```
 |文件夹|实验名称|
 |:-----:|:-----:|
-|Exp01|分光计的调节和使用|
-|Exp02|钢丝杨氏模量测量|
+|Exp01|[分光计的调节和使用](https://github.com/NestorRay/pygraph/tree/main/Exp01)|
+|Exp02|[钢丝杨氏模量测量](https://github.com/NestorRay/pygraph/tree/main/Exp02)|
