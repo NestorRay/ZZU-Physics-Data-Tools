@@ -33,7 +33,7 @@ cd ./Exp01
 5. 参照文件夹内README修改数据
 
 6. 运行脚本
-```python
+```
  uv run Exp01.py
 ```
 |文件夹|实验名称|
