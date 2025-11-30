@@ -14,8 +14,8 @@
 ### 使用方法
 1. 克隆仓库
 ```
-git clone https://github.com/NestorRay/pygraph.git
-cd ./pygraph
+git clone https://github.com/NestorRay/ZZU-Physics-Data-Tools.git
+cd ./ZZU-Physics-Data-Tools
 ```
 > **推荐使用更为现代化的uv管理依赖和虚拟环境**
 
