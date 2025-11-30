@@ -25,7 +25,7 @@ uv venv
 ```
 
 3. 安装依赖
-```python
+```
 uv pip install -r requirement.txt
 ```
 
