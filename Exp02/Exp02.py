@@ -1,23 +1,27 @@
 import numpy as np
-once = np.array([723,683,46.56])
+once = np.array([723,683,46.56])    #这个数组的数据存放的是一次测量量L,H,D 单位是mm
 
 def youngs(var):
     k,L,H,D,d = var
     a = (8*9.8*L*H)
     b = (np.pi*np.pow(d,2)*D*k)
     return a/b
-
-diameter = np.array([1.088,
+# 钢丝直径d
+d = np.array([1.088,
                      1.09,
                      1.12,
                      1.092,
                      1.09,
                      1.102])
 
+#螺旋测微器的零差
 d0 = 0.45
-diameter = diameter-d0
+
+diameter = np.mean(d) - d0
+
 
 data = np.zeros((4,10))
+# 这一维存放m的数据
 data[0] = ([0,
             1.01,
             2.01,
@@ -28,6 +32,7 @@ data[0] = ([0,
             7.01,
             8.00,
             9.01])
+# 这一维存放加力过程中的标尺读数
 data[1] = ([13.9,
             17.0,
             20.4,
@@ -38,6 +43,7 @@ data[1] = ([13.9,
             36.7,
             39.9,
             43.1])
+# 这一维存放减力过程中的标尺读数
 data[2] = ([14.0,
             17.3,
             20.5,
@@ -48,14 +54,14 @@ data[2] = ([14.0,
             36.9,
             40.1,
             43.5])
-
+# 这一维计算加减力过程中标尺读数的均值
 data[3] = (data[1,...]+data[2,...])/2
 
 data[1:4,...] = data[1:4,...]/1000
-once = once/1000
+once = once/1000    #将一次测量的L,H,D分别化为国际单位制
 diameter = diameter/1000
 
 k,b = np.polyfit(data[0],data[3],deg=1)
-input_data = np.concatenate([np.array([k]),once[:],np.array([np.mean(diameter)])])
+input_data = np.concatenate([np.array([k]),once[:],np.array([diameter])])
 result = youngs(input_data)
 print(f"杨氏模量{result:.3e}")
