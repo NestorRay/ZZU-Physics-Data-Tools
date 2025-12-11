@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import stats
 once = np.array([723,683,46.56])    #这个数组的数据存放的是一次测量量L,H,D 单位是mm
 
 def youngs(var):
@@ -62,10 +63,11 @@ d0 = d0/1000
 
 # 以下计算杨氏模量
 diameter = np.mean(d) - d0
-k,b = np.polyfit(data[0],data[3],deg=1)
+# k,b = np.polyfit(data[0],data[3],deg=1)
+reg = stats.linregress(data[0],data[3])
+k,b = reg.slope, reg.intercept
 input_data = np.concatenate([np.array([k]),once[:],np.array([diameter])])
 result = youngs(input_data)
-print(f"杨氏模量{result:.3e}")
 
 
 # 以下开始计算不确定度
@@ -76,19 +78,29 @@ uncertainty_d = np.sqrt(uncertainty_d_A ** 2 + uncertainty_d_B ** 2)
 relative_uncertainty_d = uncertainty_d/diameter
 
 # x的不确定度
-uncertainty_x_A = 1.24 * np.std(data[3],ddof=1)
-uncertainty_x_B = 0.5 /1000
-uncertainty_x = np.sqrt(uncertainty_x_A ** 2 + uncertainty_x_B ** 2)
-relative_uncertainty_x = uncertainty_x/
+uncertainty_x = reg.stderr
+relative_uncertainty_x = uncertainty_x/k
 
 #L, H, D, F的不确定度
 uncertainty_L = 0.8/1000
+relative_uncertainty_L = uncertainty_L / once[0]
 uncertainty_H = 0.8/1000
+relative_uncertainty_H = uncertainty_H / once[1]
 uncertainty_D = 0.02/1000
+relative_uncertainty_D = uncertainty_D/ once[2]
 uncertainty_F = 0.005 * 9.8
 
 # 求相对不确定度
-relative_uncertainy = np.sqrt()
-
-# def uncertainty(var):
-#     return np.sqrt()
+relative_uncertainty_all = np.array([relative_uncertainty_L,relative_uncertainty_H,2*relative_uncertainty_d,relative_uncertainty_D,relative_uncertainty_x])
+def uncertainty(var):
+    sum = np.sum(var**2)
+    return np.sqrt(sum)
+print(f"L的不确定度：{uncertainty_L}\t相对不确定度{relative_uncertainty_L}")
+print(f"H的不确定度：{uncertainty_H}\t相对不确定度{relative_uncertainty_H}")
+print(f"D的不确定度：{uncertainty_D}\t相对不确定度{relative_uncertainty_D}")
+print(f"d的不确定度：{uncertainty_d:.3}\t相对不确定度{relative_uncertainty_d:.3}")
+print(f"X的不确定度：{reg.stderr:.3e}\t相对不确定度{reg.stderr/reg.slope:.3e}\n")
+print("-------------------------------\n")
+print(f"杨氏模量：\t{result:.3e}")
+print(f"相对不确定度：\t{uncertainty(relative_uncertainty_all):.2}")
+print(f"不确定度：\t{result*uncertainty(relative_uncertainty_all):.1e}")
