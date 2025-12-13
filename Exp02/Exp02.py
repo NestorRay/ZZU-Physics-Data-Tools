@@ -95,6 +95,8 @@ relative_uncertainty_all = np.array([relative_uncertainty_L,relative_uncertainty
 def uncertainty(var):
     sum = np.sum(var**2)
     return np.sqrt(sum)
+print(f"d的A类不确定度：{uncertainty_d_A:.3e}\tB类不确定度{uncertainty_d_B}")
+print(f"d的不确定度：{uncertainty_d:.3e}")
 print(f"L的不确定度：{uncertainty_L}\t相对不确定度{relative_uncertainty_L}")
 print(f"H的不确定度：{uncertainty_H}\t相对不确定度{relative_uncertainty_H}")
 print(f"D的不确定度：{uncertainty_D}\t相对不确定度{relative_uncertainty_D}")
